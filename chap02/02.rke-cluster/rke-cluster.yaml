@@ -1,0 +1,29 @@
+nodes:
+  - address: 35.231.108.236 # External IP of rke01 node
+    internal_address: 10.142.0.12 # Internal IP of rke01 node
+    user: dev # change this to your user in cloud-shell
+    role: [controlplane, worker, etcd]
+    ssh_key_path: ~/.ssh/google_compute_engine
+  - address: 35.237.222.95 # External IP of rke02 node
+    internal_address: 10.142.0.13 # Internal IP of rke02 node
+    user: dev # change this to your user in cloud-shell
+    role: [controlplane, worker, etcd]
+    ssh_key_path: ~/.ssh/google_compute_engine
+  - address: 34.74.238.60 # External IP of rke03 node
+    internal_address: 10.142.0.11 # Internal IP of rke03 node
+    user: dev # change this to your user in cloud-shell
+    role: [controlplane, worker, etcd]
+    ssh_key_path: ~/.ssh/google_compute_engine
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+# Required for external TLS termination with
+# ingress-nginx v0.22+
+ingress:
+  provider: nginx
+  options:
+    use-forwarded-headers: "true"

@@ -1,0 +1,58 @@
+imports:
+  - path: vm.jinja
+
+resources:
+  - name: rke01
+    type: vm.jinja
+    properties:
+      zone: us-east1-b
+    #   metadata-from-file:
+    #   startup-script: ./startup-script.sh
+      startup-script: |
+        #!/bin/bash
+        apt-get update
+        apt-get upgrade -y
+        curl https://releases.rancher.com/install-docker/18.09.sh | sh
+        sudo usermod -aG docker dev
+        sudo growpart /dev/sda 1
+        sudo resize2fs /dev/sda1
+  - name: rke02
+    type: vm.jinja
+    properties:
+      zone: us-east1-c
+      startup-script: |
+        #!/bin/bash
+        apt-get update
+        apt-get upgrade -y
+        curl https://releases.rancher.com/install-docker/18.09.sh | sh
+        sudo usermod -aG docker dev
+        sudo growpart /dev/sda 1
+        sudo resize2fs /dev/sda1
+  - name: rke03
+    type: vm.jinja
+    properties:
+      zone: us-east1-d
+      startup-script: |
+        #!/bin/bash
+        apt-get update
+        apt-get upgrade -y
+        curl https://releases.rancher.com/install-docker/18.09.sh | sh
+        sudo usermod -aG docker dev
+        sudo growpart /dev/sda 1
+        sudo resize2fs /dev/sda1
+  - name: allow-all-from-home
+    type: compute.v1.firewall
+    properties:
+      network: global/networks/default
+      sourceRanges: ["81.98.99.70/32"]
+      allowed:
+      - IPProtocol: TCP
+    #   ports: ["22"]
+  - name: allow-6443-from-everywhere
+    type: compute.v1.firewall
+    properties:
+      network: global/networks/default
+      sourceRanges: ["0.0.0.0/0"]
+      allowed:
+      - IPProtocol: TCP
+        ports: ["6443"]

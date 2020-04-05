@@ -44,7 +44,7 @@ resources:
     type: compute.v1.firewall
     properties:
       network: global/networks/default
-      sourceRanges: ["81.98.99.70/32"]
+      sourceRanges: ["<Your Home IP>"]
       allowed:
       - IPProtocol: TCP
     #   ports: ["22"]

@@ -58,3 +58,4 @@ export KUBECONFIG=$(pwd)/kube_config_rke-cluster.yaml
 kubectl get nodes
 kubectl get pods --all-namespaces
 ```
+

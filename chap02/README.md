@@ -1,22 +1,22 @@
-# Chap02 README
+# chap02 README
 
 * Create a google cloud project
 
 ```bash
-gcloud projects create k8s-chap02
+gcloud projects create chap02
 ```
 
 * Switch to newly created project
 
 ```bash
-gcloud config set project k8s-chap02
+gcloud config set project chap02
 ```
 
 * Enable billing for new project
 
 ```bash
 gcloud alpha billing accounts list # To check the billing information for your google account.
-gcloud alpha billing projects link k8s-chap02 --billing-account `gcloud alpha billing accounts list | awk '{print $1}' | sed -n '1!p'`
+gcloud alpha billing projects link chap02 --billing-account `gcloud alpha billing accounts list | awk '{print $1}' | sed -n '1!p'`
 ```
 
 * Enable compute engine API, deployment manager API, Cloud DNS API & Kubernetes Engine API
@@ -58,4 +58,3 @@ export KUBECONFIG=$(pwd)/kube_config_rke-cluster.yaml
 kubectl get nodes
 kubectl get pods --all-namespaces
 ```
-
